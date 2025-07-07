@@ -1,0 +1,29 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    font: inherit;
+}
+
+p, h1, h2, h3 {
+    overflow-wrap: break-word;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+h1, h2, h3 {
+    text-wrap: balance;
+}

@@ -1,0 +1,49 @@
+:root {
+    --background-color: #E6CDB9;
+    --content-background-color: #EFE2D9;
+    --black-color: #060000;
+    --light-font-color: #FFFEFA;
+    --dark-accent-color: #8A6A4E;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+main, section {
+    background-color: var(--content-background-color);
+    border: 2px solid var(--dark-accent-color);
+    border-radius: 10px;
+    text-align: center;
+}
+
+main {
+    width: 80vh;
+    height: 80vh;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    padding: 3rem;
+}
+
+section.banlist {
+    border-radius: 10px 0 0 10px;
+    height: 100%;
+    width: 20vw;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 1.5rem;
+}
+
+button {
+    background-color: var(--dark-accent-color);
+    border: 1px solid var(--black-color);
+    color: var(--light-font-color);
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+button:active {
+    transform: scale(0.95);
+}

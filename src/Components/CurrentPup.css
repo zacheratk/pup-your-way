@@ -1,0 +1,10 @@
+img {
+    width: 500px;
+    height: 500px;
+    content-visibility: hidden;
+    display: block;
+}
+
+img.active {
+    content-visibility: visible;
+}
