@@ -35,6 +35,7 @@ section.banlist {
     right: 0;
     top: 0;
     padding: 1.5rem;
+    overflow: auto;
 }
 
 button {
