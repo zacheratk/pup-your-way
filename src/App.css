@@ -4,6 +4,7 @@
     --black-color: #060000;
     --light-font-color: #FFFEFA;
     --dark-accent-color: #8A6A4E;
+    --darker-accent-color: #483525;
 }
 
 body {
@@ -44,7 +45,8 @@ button {
     border-radius: 10px;
 }
 
-button:active {
+button:active, button:disabled {
+    background-color: var(--darker-accent-color);
     transform: scale(0.95);
 }
 

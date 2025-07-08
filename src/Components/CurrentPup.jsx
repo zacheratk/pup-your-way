@@ -8,7 +8,8 @@ const CurrentPup = ({bannedAttributes, handleAttributeClick}) => {
     name: 'Click the button to fetch a new dog!',
     image: null,
     attributes: []
-  })
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateDog = (json) => {
     if (!json[0].breeds || json[0].breeds.length === 0) {
@@ -41,8 +42,11 @@ const CurrentPup = ({bannedAttributes, handleAttributeClick}) => {
   }
 
   const fetchNewDog = () => {
+    setIsLoading(true);
     let query = `https://api.thedogapi.com/v1/images/search?api_key=${DOG_API_KEY}&has_breeds=1&limit=1&format=json`;
-    callAPI(query).catch(console.error);
+    callAPI(query)
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   }
 
   const callAPI = async (query, maxAttempts=10) => {
@@ -75,7 +79,9 @@ const CurrentPup = ({bannedAttributes, handleAttributeClick}) => {
       src={dogInfo.image}
       alt={dogInfo.image ? dogInfo.name : 'No dog image available'}
     />
-    <button onClick={fetchNewDog}><i>Ruff</i>resh</button>
+    <button onClick={fetchNewDog} disabled={isLoading}>
+      {isLoading ? 'fetching...' : <><i>Ruff</i>resh</>}
+    </button>
     </>
   );
 }
