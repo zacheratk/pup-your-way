@@ -1,10 +1,10 @@
 
 
-const Attributes = ({items}) => {
+const Attributes = ({items, handleClick}) => {
   return (
     <div className="container">
-      {items && items.map((item) => (
-        <button>{item}</button>
+      {items && items.map((item, index) => (
+        <button key={index} onClick={handleClick}>{item}</button>
       ))}
     </div>
   );

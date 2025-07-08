@@ -3,7 +3,7 @@ import Attributes from './Attributes';
 import { useState} from 'react';
 const DOG_API_KEY = import.meta.env.VITE_DOG_API_KEY;
 
-const CurrentPup = () => {
+const CurrentPup = ({handleAttributeClick}) => {
   const [dogInfo, setDogInfo] = useState({
     name: 'Click the button to fetch a new dog!',
     image: null,
@@ -54,7 +54,7 @@ const CurrentPup = () => {
   return (
     <>
     <h2>{dogInfo.name}</h2>
-    <Attributes items={dogInfo.attributes} />
+    <Attributes items={dogInfo.attributes} handleClick={handleAttributeClick}/>
     <img
       className={'dog-image' + (dogInfo.image ? ' active' : '')}
       src={dogInfo.image}
