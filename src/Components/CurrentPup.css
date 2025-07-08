@@ -4,6 +4,7 @@ img {
     content-visibility: hidden;
     display: block;
     margin: 0 auto;
+    padding: 0.5rem 0;
 }
 
 img.active {
