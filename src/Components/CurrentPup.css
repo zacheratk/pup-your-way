@@ -3,6 +3,7 @@ img {
     height: 500px;
     content-visibility: hidden;
     display: block;
+    margin: 0 auto;
 }
 
 img.active {
