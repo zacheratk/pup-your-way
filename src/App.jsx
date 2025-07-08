@@ -25,7 +25,7 @@ const App = () => {
     <main>
       <h1>Pup Your Way</h1>  
       <p>Ready for your next pup?</p>
-      <CurrentPup handleAttributeClick={addBannedAttributes}/>
+      <CurrentPup bannedAttributes={bannedAttributes} handleAttributeClick={addBannedAttributes}/>
     </main>
     
     <BanList items={bannedAttributes} handleClick={removeBannedAttribute} />

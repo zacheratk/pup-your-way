@@ -3,7 +3,7 @@ import Attributes from './Attributes';
 import { useState} from 'react';
 const DOG_API_KEY = import.meta.env.VITE_DOG_API_KEY;
 
-const CurrentPup = ({handleAttributeClick}) => {
+const CurrentPup = ({bannedAttributes, handleAttributeClick}) => {
   const [dogInfo, setDogInfo] = useState({
     name: 'Click the button to fetch a new dog!',
     image: null,
@@ -12,8 +12,7 @@ const CurrentPup = ({handleAttributeClick}) => {
 
   const updateDog = (json) => {
     if (!json[0].breeds || json[0].breeds.length === 0) {
-      fetchNewDog();
-      return;
+      return false;
     }
     console.log(json)
     let newAttributes = [json[0].breeds[0].name];
@@ -26,11 +25,19 @@ const CurrentPup = ({handleAttributeClick}) => {
     if (json[0].breeds[0].life_span) {
       newAttributes.push('Life span: ' + json[0].breeds[0].life_span);
     }
+
+    const hasBannedAttribute = newAttributes.some(attribute => bannedAttributes.includes(attribute));
+
+    if (hasBannedAttribute) {
+      return false; // Go back and try to fetch another dog
+    }
+
     setDogInfo({
       name: json[0].breeds[0].name,
       image: json[0].url,
       attributes: newAttributes
-    })
+    });
+    return true;
   }
 
   const fetchNewDog = () => {
@@ -38,17 +45,25 @@ const CurrentPup = ({handleAttributeClick}) => {
     callAPI(query).catch(console.error);
   }
 
-  const callAPI = async (query) => {
-    const response = await fetch(query);
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
+  const callAPI = async (query, maxAttempts=10) => {
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const response = await fetch(query);
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      const json = await response.json();
+      if (json == null || json.length === 0) {
+        continue; // Try to call the api again
+      }
+      if (updateDog(json)) {
+        return; // We found a valid dog, so we are done
+      }
+      // If updateDog returned false, try again
     }
-    const json = await response.json();
-    if (json == null || json.length === 0) {
-      alert('Uh oh, an error occurred!')
-    } else {
-      updateDog(json);
-    }
+
+    // If we exhausted the attempts, prompt the user
+    alert('Unable to find a dog that meets your criteria. Try removing some banned attributes!');
+    
   }
 
   return (
